@@ -10,6 +10,7 @@ import '../../core/folder_group.dart';
 import '../widgets/toast.dart';
 import '../widgets/artwork.dart';
 import '../widgets/mini_player.dart';
+import '../../models/music_models.dart';
 import '../widgets/now_playing_badge.dart';
 import '../widgets/status_bar_overlay.dart';
 
@@ -531,6 +532,7 @@ class _LocalSongsPageState extends State<LocalSongsPage> {
 
   /// 按文件夹分组的歌曲列表。
   Widget _buildGroupedList(List<Song> filteredSongs) {
+    final colorScheme = Theme.of(context).colorScheme;
     final groups = FolderGroup.groupByFolder(filteredSongs);
     if (groups.isEmpty) {
       return const Center(child: Text('没有检索到匹配的歌曲'));
@@ -602,7 +604,7 @@ class _LocalSongsPageState extends State<LocalSongsPage> {
                       ),
                     ),
                     Icon(
-                      isCollapsed ? Icons.chevron_right : Icons.chevron_down,
+                      isCollapsed ? Icons.chevron_right : Icons.keyboard_arrow_down,
                       color: colorScheme.onSurfaceVariant,
                       size: 20,
                     ),
@@ -620,6 +622,7 @@ class _LocalSongsPageState extends State<LocalSongsPage> {
                   song: song,
                   isCurrent: isCurrent,
                   isPlaying: isPlaying,
+                  colorScheme: colorScheme,
                 );
               }),
             const Divider(height: 1, indent: 72),
@@ -633,6 +636,7 @@ class _LocalSongsPageState extends State<LocalSongsPage> {
     required Song song,
     required bool isCurrent,
     required bool isPlaying,
+    required ColorScheme colorScheme,
   }) {
     return GestureDetector(
       onTap: () {
